@@ -1,0 +1,129 @@
+{% extends "vacio.html.twig" %}
+
+{% block title %}
+Compara empresas
+{% endblock %}
+
+{# CSS #}
+{% block stylesheets %}
+<style>
+    body {
+        background: #aaa;
+    }
+    table {
+        position: relative;
+        width: 100%;
+    }
+
+    tr td:nth-child(1) {
+        width: 25%;
+        padding-right: 10px;
+        text-align: right;
+    }
+
+    tr:nth-child(4) td:nth-child(2) {
+        text-align: right;
+    }
+</style>
+{% endblock %}
+
+{# CONTENIDO #}
+{% block body %}
+<div class="container">
+    <img src="{{ asset('img/banner.jpg') }}" alt="" style="width: 100%">
+    <h2>COMPARADOR DE EMPRESAS</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis, maiores nemo velit veniam voluptatibus
+        officia! Perferendis sed qui totam dolore. Quasi excepturi quae dolores. Voluptatum officiis aut iure illum
+        veritatis corrupti esse? Ducimus cum unde exce harum! Eligendi saepe a nemo, quod quasi omnis eum debitis labor
+        perferendis autem nobis, hic dolor, aliquid ducimus! Iste nostrum est consectetur, enim qui quaerat quae
+        provident error aspernatur?</p>
+    <div class="row mt-5">
+        {% for empresa in empresas %}
+        {% set tra = empresa.precioTrailer * trailers %}
+        {% set cam = empresa.precioCamion * camiones %}
+        {% set fur = empresa.precioFurgon * furgones %}
+        {% set coc = empresa.precioCoche * coches %}
+        {% set total =  tra + cam + fur + coc %}
+        {% set hecho = total * kilometros|number_format %}
+        <div class="col-md-6 pt-4 cajones">
+                <div class="card">
+                <div class="card-header bg-primary">
+                    <h5 class="text-white">{{ empresa.nombre }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <h5><img src="{{ asset('img/c1p.png') }}" alt="trailer"> x {{ trailers }}</h5>
+                        </div>
+                        <div class="col-md-3 text-center">
+
+                            <h5><img src="{{ asset('img/c2p.png') }}" alt="camion"> x {{ camiones }}</h5>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h5><img src="{{ asset('img/c3p.png') }}" alt="furgon"> x {{ furgones }}</h5>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h5><img src="{{ asset('img/c4p.png') }}" alt="coche"> x {{ coches }}</h5>
+                        </div>
+                    </div> {# fin vehiculos #}
+                    <table>
+                        <tr>
+                            <td>
+                                <h5 class="text-primary">Procedencia:</h5>
+                            </td>
+                            <td>
+                                <h5 class="text-secondary">{{ salidas }}</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 class="text-primary">Destino:</h5>
+                            </td>
+                            <td>
+                                <h5 class="text-secondary">{{ llegadas }}</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 class="text-primary">Kilometraje:</h5>
+                            </td>
+                            <td>
+                                <h5 class="text-secondary">{{ kilometros }} kms.</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 class="text-primary">Precio:</h5>
+                            </td>
+                            <td>
+                                <h3 class="text-primary"><span class="badge badge-success">{{ hecho }} €</span></h3>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6 text-center"><button class="btn btn-primary">Seleccionar</button></div>
+                        <div class="col-md-6 text-center"><button class="btn btn-danger kitar">Que caro, quitar</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="height: 200px"></div>
+
+</div>
+{% endblock %}
+
+{# JAVASCRIPTS #}
+{% block javascripts %}
+<script>
+    $('.kitar').on('click', function() {
+        var caja = $(this).closest('.cajones')
+        caja.remove()
+    })
+</script>
+{% endblock %}

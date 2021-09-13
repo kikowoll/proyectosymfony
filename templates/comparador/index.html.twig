@@ -96,7 +96,7 @@
         <div class="contenedor">
             <div class="conte-compara">
                 <div class="cajas-compara">
-                    <form action="" method="post">
+                    <form action="{{ path('em_index') }}" method="post">
                         <h5 class="text-center text-warning m-5">Selecciona los vehiculos que necesitaras.</h5>
                         <div class="row">
                             <div class="col-md-3 text-center">
@@ -169,7 +169,7 @@
                             </div>
                         </div> {# fin de los vehiculos#}
                         <div class="col-md-12 mt-5 text-center">
-                            <button type="button" onclick="pasar()" class="btn btn-success btn-lg">Continuar</button>
+                            <button type="button" onclick="pasar()" class="btn btn-success btn-lg" id="btn-vehiculos" disabled>Continuar</button>
                         </div>
                 </div>
                 <div class="cajas-compara">
@@ -189,11 +189,12 @@
                                 <select name="loc-salida" id="loc-salida" class="custom-select">
                                     <option selected>Seleciona una provincia</option>
                                 </select>
+                                <input type="hidden" name="local-salida" id="local-salida">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group"><label for=""></label>
-                                <select name="com-llegada" id="com-llegada" class="custom-select">
+                                <select class="custom-select" id="com-llegada" name="com-llegada">
                                     <option selected>Seleciona la procedencia</option>
                                 </select>
                             </div>
@@ -206,6 +207,7 @@
                                 <select name="loc-llegada" id="loc-llegada" class="custom-select">
                                     <option selected>Seleciona una provincia</option>
                                 </select>
+                                <input type="hidden" name="local-llegada" id="local-llegada">
                             </div>
                         </div>
                     </div> {# fin select ciudades #}
@@ -213,7 +215,7 @@
                         <div class="col-md-6 text-center"><button type="reset" class="btn btn-danger btn-lg"
                                 onclick="reseteo()">Volver</button></div>
                         <div class="col-md-6 text-center"><button type="button" onclick="pasar()"
-                                class="btn btn-success btn-lg">Continuar</button>
+                                class="btn btn-success btn-lg" id="btn-ciudad" disabled>Continuar</button>
                         </div>
                     </div>
                 </div>
@@ -258,7 +260,7 @@
                     <div class="row mt-5">
                         <div class="col-md-6 text-center"><button type="reset" class="btn btn-danger btn-lg"
                                 onclick="reseteo()">Volver</button></div>
-                        <div class="col-md-6 text-center"><button type="button"
+                        <div class="col-md-6 text-center"><button type="submit"
                                 class="btn btn-success btn-lg">COMPARAR</button>
                         </div>
                         </form>
@@ -273,56 +275,9 @@
 
 {% block javascripts %}
 
+<script src="{{ asset('js/datosCiudades.js') }}"></script>
 <script src="{{ asset('leaflet/leaflet.js') }}"></script>
 <script src="{{ asset('leaflet/leaflet-routing-machine.js') }}"></script>
-<script src="{{ asset('js/datosCiudades.js') }}"></script>
-<script>
-    var sal = $('#loc-salida').val(),
-        lle = $('#loc-llegada').val(),
-        datoSa = sal.split(','),
-        datolg = lle.split(',')
 
-    const tileProvided = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    var myMap = L.map('myMapa').setView([40.42028, -3.70577], 4)
-
-    L.tileLayer(tileProvided, {
-        maxZoom: 18
-    }).addTo(myMap)
-
-    // L.Routing.control({
-    //     waypoints: [
-    //         L.latLng(parseFloat(datoSa[0]), parseFloat(datoSa[1])),
-    //         L.latLng(parseFloat(datoLg[0]), parseFloat(datoLg[1]))
-    //     ],
-    //     routeWhileDragging: false,
-    //     zoomControl: false
-    // }).addTo(myMap);
-
-    // $('.leaflet-right').css('display', 'none')
-    // $('.leaflet-left').css('display', 'none')
-
-    // setTimeout(() => {
-    //     var ruta = $('.leaflet-routing-alternatives-container .leaflet-routing-alt h3').text(),
-    //         repla = ruta.split(' ')
-    //     kilo = parseFloat(repla[0])
-    //     $('#txt-kilometros').text(kilo + ' kms.')
-    //     $('#kilos').val(kilo)
-    // }, 1000);
-
-    var lado = false
-    function pasar() {
-        if(!lado) {
-            $('.conte-compara').css('margin-left','-100%')
-            lado = true
-        } else {
-            $('.conte-compara').css('margin-left','-200%')
-        }
-    }
-
-    function reseteo() {
-        $('.conte-compara').css('margin-left','0%')
-        lado = false
-    }
-</script>
 
 {% endblock %}

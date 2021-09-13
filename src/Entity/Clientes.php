@@ -30,14 +30,14 @@ class Clientes
     private $fecha;
 
     /**
-     * @ORM\OneToOne(targetEntity=contratos::class, cascade={"persist", "remove"})
-     */
-    private $contratos;
-
-    /**
      * @ORM\ManyToMany(targetEntity=empresas::class, inversedBy="clientes")
      */
     private $empresas;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Contratos::class, inversedBy="cliente")
+     */
+    private $contratos;
 
     public function __construct()
     {
@@ -74,18 +74,6 @@ class Clientes
         return $this;
     }
 
-    public function getContratos(): ?contratos
-    {
-        return $this->contratos;
-    }
-
-    public function setContratos(?contratos $contratos): self
-    {
-        $this->contratos = $contratos;
-
-        return $this;
-    }
-
     /**
      * @return Collection|empresas[]
      */
@@ -106,6 +94,18 @@ class Clientes
     public function removeEmpresa(empresas $empresa): self
     {
         $this->empresas->removeElement($empresa);
+
+        return $this;
+    }
+
+    public function getContratos(): ?Contratos
+    {
+        return $this->contratos;
+    }
+
+    public function setContratos(?Contratos $contratos): self
+    {
+        $this->contratos = $contratos;
 
         return $this;
     }
