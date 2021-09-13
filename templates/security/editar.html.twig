@@ -1,0 +1,132 @@
+{% extends "vacio.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .cajon {
+        position: relative;
+        width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        box-shadow: 0 0 20px 2px #000;
+    }
+
+    .cajas-datos {
+        width: 100%;
+    }
+
+    #caja-form {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ texto }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="cajon">
+        <div class="cajas-datos">
+            <h4 class="text-center">Tus Datos</h4>
+            <br>
+            <h5><i class="fa fa-user text-primary"></i> {{ usuarios.nombre }} </h5>
+            <h5><i class="fa fa-home text-primary"></i> {{ usuarios.direccion }} </h5>
+            <h5><i class="fa fa-map-marker text-primary"></i> {{ usuarios.localidad }} </h5>
+            <h5><i class="fa fa-map text-primary"></i> {{ usuarios.codigoPostal }} - {{ usuarios.provincia }} </h5>
+            <h5><i class="fa fa-phone text-primary"></i> {{ usuarios.telefono }} </h5>
+            <h5><i class="fa fa-envelope text-primary"></i> {{ usuarios.email }} </h5>
+            <div class="row mt-3">
+                <div class="col-md-6"><button class="btn btn-primary btn-block" onclick="cambio()">Editar</button></div>
+                <div class="col-md-6"><a href="{{ path('pri_index') }}" class="btn btn-danger btn-block">Salir</a></div>
+            </div>
+        </div>
+        <div class="cajas-datos" id="caja-form">
+            <h4 class="text-center">Edita tus datos</h4>
+
+            <form action="{{ path('app_guardar') }}" method="post">
+                <input type="hidden" name="idd" value="{{ usuarios.id }}">
+                {# nombre #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="nombre" aria-label="Username"
+                        aria-describedby="basic-addon1" name="nombre" value="{{ usuarios.nombre }}">
+                </div>
+                {# direccion #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-home"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="direccion" aria-label="Username"
+                        aria-describedby="basic-addon2" name="direccion" value="{{ usuarios.direccion }}">
+                </div>
+                {# localidad #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3"><i class="fa fa-map-marker"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="localidad" aria-label="Username"
+                        aria-describedby="basic-addon3" name="localidad" value="{{ usuarios.localidad }}">
+                </div>
+                {# codigo postal #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon4">CP</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="codigo postal" aria-label="Username"
+                        aria-describedby="basic-addon4" name="codigo" value="{{ usuarios.codigoPostal }}">
+                </div>
+                {# provincia #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon5"><i class="fa fa-map"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="provincia" aria-label="Username"
+                        aria-describedby="basic-addon5" name="provincia" value="{{ usuarios.provincia }}">
+                </div>
+                {# telefono #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon6"><i class="fa fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="telefono" aria-label="Username"
+                        aria-describedby="basic-addon6" name="telefono" value="{{ usuarios.telefono }}">
+                </div>
+                {# correo #}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon7"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="correo" aria-label="Username"
+                        aria-describedby="basic-addon7" name="email" value="{{ usuarios.email }}">
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </div>
+                    <div class="col-md-6"><button type="button" class="btn btn-danger btn-block" onclick="cambio()">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function cambio() {
+        $('.cajas-datos').animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow')
+    }
+</script>
+{% endblock %}

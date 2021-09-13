@@ -1,0 +1,147 @@
+// colores root
+$blue: #007bff;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #17a2b8;
+$white: #fff;
+$gray: #6c757d;
+$gray-dark: #343a40;
+$primary: #007bff;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: $light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    #relleno {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $primary;
+        transition: all 1s;
+        &.anima {
+            width: 25px;
+        }
+    }
+    .header-datos {
+        position: relative;
+        width: 400px;
+        height: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        margin-left: 30px;
+        #btn-menu{
+            position: relative;
+            width: 32px;
+            cursor: pointer;
+            margin-right: 20px;
+            .uno,.dos,.tres {
+                width: 100%;
+                height: 5px;
+                background-color: $light;
+                border-radius: 10px;
+                transition: all 1s;
+            }
+            .dos {
+                margin: 5px 0;
+            }
+            &.anima .uno{
+                transform: translateY(10px) rotate(45deg);
+                background-color: $danger;
+            }
+            &.anima .dos{
+                opacity: 0;
+            }
+            &.anima .tres{
+                transform: translateY(-10px) rotate(-45deg);
+                background-color: $danger;
+            }
+        }
+        h3 {
+            color: $light;
+            transition: all 2s;
+            span {
+                color: $warning;
+            }
+            &.anima {
+                color: $dark;
+                span {
+                    color: $secondary;
+                }
+            }
+        }
+    }
+    .header-user {
+        position: relative;
+        margin-right: 30px;
+    }
+}
+
+#liston{
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 25px;
+    height: 0;
+    background-color: $primary;
+    transition: all 1s;
+    z-index: 1000;
+    &.anima {
+        height: calc(100vh - 50px);
+    }
+}
+
+#navi {
+    position: fixed;
+    top: 50px;
+    left: -305px;
+    width: 300px;
+    height: calc(100vh - 50px);
+    background-color: $primary;
+    padding: 0 20px;
+    transition: all 0.8s;
+    z-index: 1000;
+    ul {
+        li {
+            position: relative;
+            width: 100%;
+            list-style: none;
+            a {
+                display: block;
+                padding: 12px 0;
+                font-size: 20px;
+                color: $light;
+            }
+        }
+    }
+    &.anima {
+        left: 0;
+    }
+}

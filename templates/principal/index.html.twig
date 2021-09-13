@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compara-trans{% endblock %}
+
+{# CSS #}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/dist/principal.css') }}">
+{% endblock %}
+
+{# CONTENIDO #}
+{% block body %}
+    <div id="banner">
+        <img src="{{ asset('img/banner1.jpg') }}" alt="">
+    </div>
+<section id="info">
+    <div class="container mt-5">
+        <h1 class="text-center">¿COMO FUNCIONAMOS?</h1>
+        <div class="row mt-5 mb-5">
+            <div class="col-md-6">
+                <img src="{{ asset('img/ordenador.png') }}" alt="ordenata" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                 <div class="conte-info-textox">
+                    <h4>Configura tu envío</h4>
+                    <p class="parra">Selecciona todas las características de tu envío en menos de un minuto.</p>
+                    <h4>Contrata el precio inicial o espera ofertas</h4>
+                    <p class="parra">Puedes contratar tus servicios directamente por el precio que indica la
+                        plataforma o si
+                        puedes esperar un poco más, vas a recibir otras ofertas</p>
+                    <h4>Realiza el pago y… ¡despreocúpate!</h4>
+                    <p class="parra">Págalo con el método que prefieras, nuestro camión recogerá tu mercancía ese
+                        mismo día o en
+                        24h para entregar en tiempo récord.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    {# info empresas #}
+<section id="empresas" class="bg-dark">
+    <div class="container p-5">
+        <h2 class="titulo-section text-center text-white mt-5">RAZONES POR LO QUE NUESTRAS CLIENTES REPITEN</h2>
+        <div class="row pt-5">
+            <div class="col-md-2">
+                <img src="{{ asset('img/economico.png') }}" alt="" class="logo-empresas img-fluid">
+            </div>
+            <div class="col-md-10">
+                <h4 class="titulo-empresas text-white pt-3">Economico</h4>
+                <p class="text-white p-2">En nuestras empresas, son expertos en aprovechar los retornos y espacios vacíos de los transportistas para proporcionarte los precios más competitivos.</p>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col-md-2">
+                <img src="{{ asset('img/experiencia.png') }}" alt="" class="logo-empresas img-fluid">
+            </div>
+            <div class="col-md-10">
+                <h4 class="titulo-empresas text-white pt-3">Experiencia</h4>
+                <p class="text-white p-2">Te proporcionamos una amplia red de transportistas para que puedas enviar mercancía a la vez que optimizamos el traslado de mercancías.</p>
+            </div>
+        </div>
+
+            <div class="row pt-5">
+            <div class="col-md-2">
+                <img src="{{ asset('img/instantaneo.png') }}" alt="" class="logo-empresas img-fluid">
+            </div>
+            <div class="col-md-10">
+                <h4 class="titulo-empresas text-white pt-3">Instantaneo</h4>
+                <p class="text-white p-2">Publica tu carga en menos de un minuto y recibe respuesta de forma instantánea. Tendrás disponibles tus envíos en cualquier momento.</p>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col-md-2">
+                <img src="{{ asset('img/seguimiento.png') }}" alt="" class="logo-empresas img-fluid">
+            </div>
+            <div class="col-md-10">
+                <h4 class="titulo-empresas text-white pt-3">Seguimiento</h4>
+                <p class="text-white p-2">Podrás ver la ubicación de tu carga en tiempo real para gestionar de forma más eficiente tu tiempo.</p>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+</section>
+
+<section id="info-articulo">
+    <div class="container mt-5">
+            <h2 class="titulo-section text-center mb-4">¿Son los transportes baratos una buena opción?</h2>
+            <p>Un transporte económico suele contar con mala fama en lo que se refiere a la calidad de envío, pero esto es un gran mito. Ya que las empresas de envíos mejor posicionadas como Transeop que tienen una estructura bien formada de transporte nacional y una gran red de transportes ya sea a nivel nacional o internacional han conseguido reducir mucho el coste de sus servicios de transporte debido al gran volumen de consumidores y servicios que llevan a cabo de forma diaria.</p>
+            <p>En el caso de COMPARA-TRANS, somos una empresa, que trabaja con empresas de transportes que se encuentran en constante evolución con el fin de dar un buen servicio a nuestros clientes. Alcanzamos nuestros objetivos mediante la mejora de procesos logísticos internos que aportan cada vez una mayor eficiencia en toda la actividad de transporte nacional e internacional de mercancías. Para nosotros prima la satisfacción del cliente como clave del éxito de nuestra plataforma nacional e internacional.</p>
+            <p>En cuanto a lo referido a los precios de nuestros servicios, conseguimos que sean tan competitivos debido a nuestro sistema de aprovechamiento de huecos libres. Este sistema consiste en optimizar los viajes que hacen los transportistas ya que en más del 50% de las ocasiones los conductores vuelven con el camión vacío una vez han entregado la mercancía en su destino. ¿Y cómo solucionamos esto? Pues organizando una red de transportistas a través de la cual podemos cuadrar las cargas de unos y de otros para intentar que los camiones vayan lo más llenos posible y, de esta manera, obtener un triple beneficio:
+ Para el transportista que hace los mismos viajes y gana más dinero y tiempo.
+ Para el cliente que paga un 30% menos que lo que pagaría normalmente y obtiene ofertas hechas a su medida. Para el medio ambiente, debido a que reducimos los niveles de CO2 expulsados a la atmósfera por los camiones, al disminuir también los viajes en vacío que realizan los conductores.</p>
+            <p>En conclusión, COMPARA-TRANS te proporciona respuestas novedosas en este ámbito y pensadas para el cliente y en una constante mejora por ofrecer siempre un mejor servicio con ventajas beneficiosas para que puedas ahorrar cuidando tu entorno.</p>
+            <p></p>
+        </div>
+</section>
+
+{% endblock %}
+
+{# JAVASCRIPT #}
+{% block javascripts %}
+    
+{% endblock %}

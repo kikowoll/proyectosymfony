@@ -1,0 +1,45 @@
+{% extends 'vacio.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        form {
+            box-shadow: 0 0 20px 3px #000;
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="registro" style="width:360px;margin:200px auto">
+
+    {{ form_start(registrationForm) }}
+        <h1 class="text-center">Registro</h1>
+        {{ form_row(registrationForm.email, {
+            label: 'Correo'
+        }) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Contraseña'
+        }) }}
+        <br>
+        {{ form_row(registrationForm.agreeTerms, {
+            label: 'Acepto las condiciones '
+        }) }}
+        <br>
+        <button type="submit" class="btn btn-primary btn-block">Registrarme</button>
+        <br>
+        <p class="text-center">Ya tengo una cuenta <a href="{{ path('app_login') }}"> Entrar</a></p>
+    {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#registration_form_email').attr('class','form-control')
+        $('#registration_form_plainPassword').attr('class','form-control')
+        $('#registration_form_agreeTerms').css('margin-left','10px')
+    </script>
+{% endblock %}
