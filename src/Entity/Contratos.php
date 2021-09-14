@@ -20,7 +20,7 @@ class Contratos
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=clientes::class, mappedBy="contratos")
+     * @ORM\OneToMany(targetEntity=Clientes::class, mappedBy="contratos")
      */
     private $cliente;
 

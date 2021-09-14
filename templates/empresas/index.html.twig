@@ -10,6 +10,7 @@ Compara empresas
     body {
         background: #aaa;
     }
+
     table {
         position: relative;
         width: 100%;
@@ -46,74 +47,85 @@ Compara empresas
         {% set total =  tra + cam + fur + coc %}
         {% set hecho = total * kilometros|number_format %}
         <div class="col-md-6 pt-4 cajones">
-                <div class="card">
+            <div class="card">
                 <div class="card-header bg-primary">
                     <h5 class="text-white">{{ empresa.nombre }}</h5>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 text-center">
-                            <h5><img src="{{ asset('img/c1p.png') }}" alt="trailer"> x {{ trailers }}</h5>
-                        </div>
-                        <div class="col-md-3 text-center">
+                <form action="{{ path('em_contratar') }}" method="post">
+                    <div class="card-body">
+                    <input type="hidden" name="empresa" value="{{ empresa.id }}">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <h5><img src="{{ asset('img/c1p.png') }}" alt="trailer"> x {{ trailers }}</h5>
+                                <input type="hidden" name="trailer" value="{{ trailers }}">
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h5><img src="{{ asset('img/c2p.png') }}" alt="camion"> x {{ camiones }}</h5>
+                                <input type="hidden" name="camion" value="{{ camiones }}">
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h5><img src="{{ asset('img/c3p.png') }}" alt="furgon"> x {{ furgones }}</h5>
+                                <input type="hidden" name="furgon" value="{{ furgones }}">
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h5><img src="{{ asset('img/c4p.png') }}" alt="coche"> x {{ coches }}</h5>
+                                <input type="hidden" name="coche" value="{{ coches }}">
+                            </div>
+                        </div> {# fin vehiculos #}
+                        <table>
+                            <tr>
+                                <td>
+                                    <h5 class="text-primary">Procedencia:</h5>
+                                </td>
+                                <td>
+                                    <h5 class="text-secondary">{{ salidas }}</h5>
+                                    <input type="hidden" name="salida" value="{{ salidas }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5 class="text-primary">Destino:</h5>
+                                </td>
+                                <td>
+                                    <h5 class="text-secondary">{{ llegadas }}</h5>
+                                    <input type="hidden" name="llegada" value="{{ llegadas }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5 class="text-primary">Kilometraje:</h5>
+                                </td>
+                                <td>
+                                    <h5 class="text-secondary">{{ kilometros }} kms.</h5>
+                                    <input type="hidden" name="kilo" value="{{ kilometros }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5 class="text-primary">Precio:</h5>
+                                </td>
+                                <td>
+                                    <h3 class="text-primary"><span class="badge badge-success">{{ hecho }} €</span></h3>
+                                    <input type="hidden" name="precio" value="{{ hecho }}">
+                                </td>
+                            </tr>
 
-                            <h5><img src="{{ asset('img/c2p.png') }}" alt="camion"> x {{ camiones }}</h5>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <h5><img src="{{ asset('img/c3p.png') }}" alt="furgon"> x {{ furgones }}</h5>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <h5><img src="{{ asset('img/c4p.png') }}" alt="coche"> x {{ coches }}</h5>
-                        </div>
-                    </div> {# fin vehiculos #}
-                    <table>
-                        <tr>
-                            <td>
-                                <h5 class="text-primary">Procedencia:</h5>
-                            </td>
-                            <td>
-                                <h5 class="text-secondary">{{ salidas }}</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 class="text-primary">Destino:</h5>
-                            </td>
-                            <td>
-                                <h5 class="text-secondary">{{ llegadas }}</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 class="text-primary">Kilometraje:</h5>
-                            </td>
-                            <td>
-                                <h5 class="text-secondary">{{ kilometros }} kms.</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 class="text-primary">Precio:</h5>
-                            </td>
-                            <td>
-                                <h3 class="text-primary"><span class="badge badge-success">{{ hecho }} €</span></h3>
-                            </td>
-                        </tr>
+                        </table>
 
-                    </table>
-
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-md-6 text-center"><button class="btn btn-primary">Seleccionar</button></div>
-                        <div class="col-md-6 text-center"><button class="btn btn-danger kitar">Que caro, quitar</button></div>
                     </div>
-                </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6 text-center"><button class="btn btn-primary">Seleccionar</button></div>
+                            <div class="col-md-6 text-center"><button class="btn btn-danger kitar">Que caro,
+                                    quitar</button></div>
+                        </div>
+                </form>
             </div>
         </div>
-        {% endfor %}
     </div>
-    <div style="height: 200px"></div>
+    {% endfor %}
+</div>
+<div style="height: 200px"></div>
 
 </div>
 {% endblock %}
@@ -121,7 +133,7 @@ Compara empresas
 {# JAVASCRIPTS #}
 {% block javascripts %}
 <script>
-    $('.kitar').on('click', function() {
+    $('.kitar').on('click', function () {
         var caja = $(this).closest('.cajones')
         caja.remove()
     })

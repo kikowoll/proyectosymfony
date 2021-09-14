@@ -20,7 +20,7 @@ class Clientes
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=user::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      */
     private $usuario;
 
@@ -30,7 +30,7 @@ class Clientes
     private $fecha;
 
     /**
-     * @ORM\ManyToMany(targetEntity=empresas::class, inversedBy="clientes")
+     * @ORM\ManyToMany(targetEntity=Empresas::class, inversedBy="clientes")
      */
     private $empresas;
 
@@ -49,12 +49,12 @@ class Clientes
         return $this->id;
     }
 
-    public function getUsuario(): ?user
+    public function getUsuario(): ?User
     {
         return $this->usuario;
     }
 
-    public function setUsuario(?user $usuario): self
+    public function setUsuario(?User $usuario): self
     {
         $this->usuario = $usuario;
 
@@ -75,14 +75,14 @@ class Clientes
     }
 
     /**
-     * @return Collection|empresas[]
+     * @return Collection|Empresas[]
      */
     public function getEmpresas(): Collection
     {
         return $this->empresas;
     }
 
-    public function addEmpresa(empresas $empresa): self
+    public function addEmpresa(Empresas $empresa): self
     {
         if (!$this->empresas->contains($empresa)) {
             $this->empresas[] = $empresa;
@@ -91,7 +91,7 @@ class Clientes
         return $this;
     }
 
-    public function removeEmpresa(empresas $empresa): self
+    public function removeEmpresa(Empresas $empresa): self
     {
         $this->empresas->removeElement($empresa);
 

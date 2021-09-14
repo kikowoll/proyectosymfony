@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Modelo\Modelo;
+use App\Repository\UserRepository;
 use App\Repository\EmpresasRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/empresas', name: 'em_')]
 class EmpresasController extends AbstractController
@@ -34,8 +36,6 @@ class EmpresasController extends AbstractController
 
         $empresa = $empresasRepository->findAll();
 
-        dump($empresa);
-
         return $this->render('empresas/index.html.twig', [
             'controller_name' => 'EmpresasController',
             'salidas' => $procedencia,
@@ -47,6 +47,45 @@ class EmpresasController extends AbstractController
             'coches' => $coche, 
             'empresas' => $empresa,
 
+        ]);
+    }
+
+    #[Route('/contratar', name: 'contratar')]
+    public function contratar(
+        Request $request,
+        Modelo $modelo,
+        UserRepository $userRepository):Response
+    {
+        
+        $user = $this->getUser()->getId();
+        $empresa = $request->request->get('empresa');
+
+        $trailer = $request->request->get('trailer');
+        $camion = $request->request->get('camion');
+        $furgon = $request->request->get('furgon');
+        $coche = $request->request->get('coche');
+
+        $salida = $request->request->get('salida');
+        $llegada = $request->request->get('llegada');
+
+        $precio = $request->request->get('precio');
+
+        $contrato = $modelo->contrato(1, $salida, $llegada, $precio, $empresa);
+        $contrato->getId();
+
+        if($contrato) {
+            $texto = 'Enhorabuena... Tu seleción esta siendo transferida y en breve la empresa que selecionastes se pondra en contacto con usted.<br> GRACIAS por contar con nosotros y bla bla bla y bla.';
+            $color = 'success';
+            $sitio = 'principal/index.html.twig';
+        } else {
+            $texto = 'A pasado algo malo, no hemos podido hacer tu transferencia. Intenalo mas tarde';
+            $color = 'danger';
+            $sitio = 'comparador/index.html.twig';
+        }
+
+        return $this->render($sitio, [
+            'textos' => $texto,
+            'colores' => $color,
         ]);
     }
 }
