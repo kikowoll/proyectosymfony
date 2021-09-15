@@ -101,9 +101,16 @@ header .header-user {
   transition: all 0.8s;
   z-index: 1000;
 }
+#navi ul {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 #navi ul li {
   position: relative;
   width: 100%;
+  display: block;
   list-style: none;
 }
 #navi ul li a {

@@ -22,11 +22,25 @@
 <div id="liston"></div>
 <nav id="navi">
     <ul>
-        <li><a href="">item 1</a></li>
-        <li><a href="">item 2</a></li>
-        <li><a href="">item 3</a></li>
-        <li><a href="">item 4</a></li>
-        <li><a href="">item 5</a></li>
+        <li><a href="{{ path('pri_index') }}"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><a href="{{ path('pri_index') }}#info"><i class="fa fa-info-circle"></i> Como Funcionamos</a></li>
+        <li><a href="{{ path('pri_index') }}#empresas"><i class="fa fa-info-circle"></i> Las Razones</a></li>
+        <li><a href="{{ path('pri_index') }}#info-articulo"><i class="fa fa-info-circle"></i> Opinion</a></li>
+
+        {% if app.user %}
+          <li><a href="{{ path('com_index') }}"><i class="fa fa-cogs"></i> Comparador</a></li>
+        {% else %}
+          <li><a href="#" title="hay que iniciar sesión"><i class="fa fa-cogs"></i> Comparador</a></li>
+        {% endif %}
+
+        <li><a href=""><i class="fa fa-envelope"></i> Contacto</a></li>
+
+        {% if app.user %}
+          <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-user"></i> {{ app.user.username }}</a></li>
+        {% else %}
+          <li><a href="{{ path('app_login') }}"><i class="fa fa-user"></i> Inicio de sesión</a></li>
+        {% endif %}
+        
     </ul>
 </nav>
 

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/comparador', name: 'com_')]
 class ComparadorController extends AbstractController
 {
-    #[Route('/', name: 'comparador')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('comparador/index.html.twig', [

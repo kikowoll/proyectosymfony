@@ -129,9 +129,14 @@ header {
     transition: all 0.8s;
     z-index: 1000;
     ul {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
         li {
             position: relative;
             width: 100%;
+            display: block;
             list-style: none;
             a {
                 display: block;

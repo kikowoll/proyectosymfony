@@ -54,7 +54,7 @@ class EmpresasController extends AbstractController
     public function contratar(
         Request $request,
         Modelo $modelo,
-        UserRepository $userRepository):Response
+        UserRepository $userRepository,):Response
     {
         
         $user = $this->getUser()->getId();
@@ -70,7 +70,14 @@ class EmpresasController extends AbstractController
 
         $precio = $request->request->get('precio');
 
-        $contrato = $modelo->contrato(1, $salida, $llegada, $precio, $empresa);
+        $mes = ['','enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+        $meses = $mes[date('n')]; 
+        $dia = date('j');
+        $ano = date('Y');
+        $hora = date('G:i');
+        $fecha = $dia .' de ' . $meses .' del ' . $ano . ' - ' . $hora;
+
+        $contrato = $modelo->contrato($user, $salida, $llegada, $precio, $empresa, $fecha);
         $contrato->getId();
 
         if($contrato) {
