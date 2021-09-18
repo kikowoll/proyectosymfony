@@ -44,14 +44,12 @@ class Empresas
      */
     private $precioCoche;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Clientes::class, mappedBy="empresas")
-     */
-    private $clientes;
+
+
 
     public function __construct()
     {
-        $this->clientes = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -119,30 +117,6 @@ class Empresas
         return $this;
     }
 
-    /**
-     * @return Collection|Clientes[]
-     */
-    public function getClientes(): Collection
-    {
-        return $this->clientes;
-    }
+   
 
-    public function addCliente(Clientes $cliente): self
-    {
-        if (!$this->clientes->contains($cliente)) {
-            $this->clientes[] = $cliente;
-            $cliente->addEmpresa($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCliente(Clientes $cliente): self
-    {
-        if ($this->clientes->removeElement($cliente)) {
-            $cliente->removeEmpresa($this);
-        }
-
-        return $this;
-    }
 }

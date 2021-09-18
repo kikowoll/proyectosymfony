@@ -54,11 +54,13 @@ class EmpresasController extends AbstractController
     public function contratar(
         Request $request,
         Modelo $modelo,
-        UserRepository $userRepository,):Response
+        UserRepository $userRepository,
+        EmpresasRepository $empresasRepository):Response
     {
         
-        $user = $this->getUser()->getId();
-        $empresa = $request->request->get('empresa');
+        $user = $this->getUser();
+        $empresaIdd = $request->request->get('empresa');
+        $empresa = $empresasRepository->find($empresaIdd);
 
         $trailer = $request->request->get('trailer');
         $camion = $request->request->get('camion');
@@ -77,11 +79,11 @@ class EmpresasController extends AbstractController
         $hora = date('G:i');
         $fecha = $dia .' de ' . $meses .' del ' . $ano . ' - ' . $hora;
 
-        $contrato = $modelo->contrato($user, $salida, $llegada, $precio, $empresa, $fecha);
+        $contrato = $modelo->contrato($user, $salida, $llegada, $precio, $empresa, $fecha, $trailer, $camion, $furgon, $coche);
         $contrato->getId();
 
         if($contrato) {
-            $texto = 'Enhorabuena... Tu seleción esta siendo transferida y en breve la empresa que selecionastes se pondra en contacto con usted.<br> GRACIAS por contar con nosotros y bla bla bla y bla.';
+            $texto = 'Enhorabuena... Tu seleción esta siendo transferida y en breve la empresa que selecionastes se pondra en contacto con usted. GRACIAS por contar con nosotros y bla bla bla y bla.';
             $color = 'success';
             $sitio = 'principal/index.html.twig';
         } else {

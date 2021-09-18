@@ -38,3 +38,9 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/principal, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/comparador, roles: ROLE_USER }
+        - { path: ^/movimientos, roles: ROLE_USER }
+        - { path: ^/cambio, roles: ROLE_ADMIN }

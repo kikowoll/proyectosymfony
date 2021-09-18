@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis Movimientos{% endblock %}
+{# css #}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">
+    <style>
+        #modal-tabla {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+
+{# contenidos #}
+{% block body %}
+    <div class="container">
+        <h1 class="text-center m-5">Mis Movimientos</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h5 class="text-white">Mis Datos</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5><i class="fa fa-user text-primary"></i> {{ usuarios.nombre }}</h5>
+                        <h5><i class="fa fa-home text-primary"></i> {{ usuarios.direccion }}</h5>
+                        <h5><i class="fa fa-map-marker text-primary"></i> {{ usuarios.localidad }}</h5>
+                        <h5><i class="fa fa-map text-primary"></i> {{ usuarios.codigopostal }} -  {{ usuarios.provincia }}</h5>
+                        <h5><i class="fa fa-phone text-primary"></i> {{ usuarios.telefono }}</h5>
+                        <h5><i class="fa fa-envelope text-primary"></i> {{ usuarios.email }}</h5>
+                        <br>
+                        <a href="{{ path('app_editar') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <table id="mitabla" class="display">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Empresa</th>
+                                <th>Precio</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
+                        {% for contrato in contratos %}
+                                
+                            {% if contrato.usuario == app.user or contrato.empresa.nombre == app.user.nombre %}
+                            <tr>
+                                <td>{{ contrato.fecha }}</td>
+                                <td>{{ contrato.empresa.nombre}}</td>
+                                <td>{{ contrato.precio }}</td>
+                                <td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#staticBackdrop" 
+                                        onclick="rellenar('{{contrato.usuario.nombre}}','{{contrato.salida}}','{{contrato.llegada}}','{{contrato.precio}}','{{contrato.fecha}}')">
+                                        <i class="fa fa-eye fa-2x text-primary"></i>
+                                    </button>
+                                    {% elseif  is_granted('ROLE_USER')%}
+                                    <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#staticBackdrop" 
+                                        onclick="rellenar('{{contrato.empresa.nombre}}','{{contrato.salida}}','{{contrato.llegada}}','{{contrato.precio}}','{{contrato.fecha}}','{{contrato.trailer}}','{{contrato.camion}}','{{contrato.furgon}}','{{contrato.coche}}')">
+                                        <i class="fa fa-eye fa-2x text-primary"></i>
+                                    </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        {# MODAL#}
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Resumen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="modal-tabla">
+                           <tr>
+                               <td colspan="2">
+                                <div class="row">
+                                    <div class="col-md-3 text-center">
+                                        <h5><img src="{{ asset('img/c1p.png') }}" alt=""> = <span id="ve-trailer"></span></h5>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <h5><img src="{{ asset('img/c2p.png') }}" alt=""> = <span id="ve-camion"></span></h5>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <h5><img src="{{ asset('img/c3p.png') }}" alt=""> = <span id="ve-furgon"></span></h5>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <h5><img src="{{ asset('img/c4p.png') }}" alt=""> = <span id="ve-coche"></span></h5>
+                                    </div>
+                                </div>
+                               </td>
+                           </tr>
+                           <tr>
+                                {% if is_granted('ROLE_ADMIN') %}
+                               <td><i class="fa fa-user"></i></td>
+                                {% else %}
+                               <td><i class="fa fa-industry"></i></td>
+                                {% endif %}
+                               <td><h5 class="text-primary" id="empresa"></h5></td>
+                           </tr>
+                           <tr>
+                               <td><i class="fa fa-times"></i><i class="fa fa-arrow-right"></i></td>
+                               <td><h5 class="text-primary" id="salida"></h5></td>
+                           </tr>
+                           <tr>
+                               <td><i class="fa fa-arrow-right"></i><i class="fa fa-times"></i></td>
+                               <td><h5 class="text-primary" id="llegada"></h5></td>
+                           </tr>
+                           <tr>
+                               <td><i class="fa fa-eur"></i></td>
+                               <td><h5 class="text-right"><span class="badge badge-success" id="precio"></span></h5></td>
+                           </tr>
+                           <tr>
+                               <td><i class="fa fa-calendar"></i></td>
+                               <td><h5 class="text-primary" id="fecha"></h5></td>
+                           </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# javascripts #}
+{% block javascripts %}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
+    <script>
+        
+        $('#mitabla').DataTable({
+            "oLanguage": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+
+            }
+        });
+        
+        function rellenar(emp,sal,lle,pre,fec,tra,cam,fur,coc) {
+            $('#empresa').text(emp)
+            $('#salida').text(sal)
+            $('#llegada').text(lle)
+            $('#precio').text(pre+' €')
+            $('#fecha').text(fec)
+            $('#ve-trailer').text(tra)
+            $('#ve-camion').text(cam)
+            $('#ve-furgon').text(fur)
+            $('#ve-coche').text(coc)
+        }
+    </script>
+{% endblock %}
+

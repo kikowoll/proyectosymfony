@@ -27,11 +27,8 @@
         <li><a href="{{ path('pri_index') }}#empresas"><i class="fa fa-info-circle"></i> Las Razones</a></li>
         <li><a href="{{ path('pri_index') }}#info-articulo"><i class="fa fa-info-circle"></i> Opinion</a></li>
 
-        {% if app.user %}
-          <li><a href="{{ path('com_index') }}"><i class="fa fa-cogs"></i> Comparador</a></li>
-        {% else %}
-          <li><a href="#" title="hay que iniciar sesión"><i class="fa fa-cogs"></i> Comparador</a></li>
-        {% endif %}
+        <li><a href="{{ path('com_index') }}"><i class="fa fa-cogs"></i> Comparador</a></li>
+        
 
         <li><a href=""><i class="fa fa-envelope"></i> Contacto</a></li>
 
@@ -49,7 +46,9 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+      {% if app.user %}
+        <h5 class="modal-title" id="exampleModalLongTitle">{{ app.user.username }}</h5>
+      {% endif %}
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -57,7 +56,10 @@
       <div class="modal-body">
         <a href="{{ path('app_editar') }}" class="btn btn-primary btn-block">Mi Perfil</a>
         <a href="{{ path('app_editar') }}" class="btn btn-primary btn-block">Editar mis Datos</a>
-        <a href="" class="btn btn-primary btn-block">Mis Movimientos</a>
+        <a href="{{ path('mo_index') }}" class="btn btn-primary btn-block">Mis Movimientos</a>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')%}
+        <a href="" class="btn btn-primary btn-block">Editar Precios</a>
+        {% endif %}
         <a href="{{ path('app_logout') }}" class="btn btn-danger btn-block">Cerrar sesión</a>
       </div>
     </div>

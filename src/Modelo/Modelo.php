@@ -4,32 +4,27 @@ namespace App\Modelo;
 
 use App\Entity\Clientes;
 use App\Entity\Contratos;
-use App\Repository\ClientesRepository;
 use App\Repository\ContratosRepository;
 use App\Repository\EmpresasRepository;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Driver\PDO\Exception;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Stmt\TryCatch;
 
 class Modelo {
 
     private UserRepository $ur;
     private EntityManagerInterface $em;
     private ContratosRepository $cr;
-    private ClientesRepository $clr;
     private EmpresasRepository $emr;
 
     public function __construct(UserRepository $ur, 
     EntityManagerInterface $em, 
-    ContratosRepository $cr, 
-    ClientesRepository $clr,
+    ContratosRepository $cr,
     EmpresasRepository $emr)
     {
         $this->ur = $ur;
         $this->em = $em;
         $this->cr = $cr;
-        $this->clr = $clr;
         $this->emr = $emr;
     }
     /* EDITAR USUARIO */
@@ -55,13 +50,20 @@ class Modelo {
     }
 
     /* CONTRATAR */
-    public function contrato(int $ids, string $salida, string $llegada, string $precio, int $empresa, string $fecha)
+    public function contrato($ids, string $salida, string $llegada, string $precio, $empresa, string $fecha, $trailer, $camion, $furgon, $coche)
     {
 
         $contrato = new Contratos();
+        $contrato->setUsuario($ids);
+        $contrato->setEmpresa($empresa);
         $contrato->setSalida($salida);
         $contrato->setLlegada($llegada);
+        $contrato->setFecha($fecha);
         $contrato->setPrecio($precio);
+        $contrato->setTrailer($trailer);
+        $contrato->setCamion($camion);
+        $contrato->setFurgon($furgon);
+        $contrato->setCoche($coche);
 
         try {
             $this->em->persist($contrato);
@@ -70,25 +72,6 @@ class Modelo {
             return 'Error al guardar contrato' . $ex->getMessage();
         }
 
-        $usuario = $this->ur->find($ids);
-        $empresa = $this->emr->find($empresa);
-
-        $idd = $contrato;
-        $idd->getId();
-        $cliente = new Clientes();
-        $cliente->setUsuario($usuario);
-        $cliente->setContratos($idd);
-        $cliente->addEmpresa($empresa);
-        $cliente->setFecha($fecha);
-
-        try {
-            $this->em->persist($cliente);
-            $this->em->flush();
-        } catch (Exception $ex) {
-            return 'Error al guardar cliente' . $ex->getMessage();
-        }
-
         return $contrato;
     }
-
 }

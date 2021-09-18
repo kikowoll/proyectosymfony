@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ContratosRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,9 +18,14 @@ class Contratos
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Clientes::class, mappedBy="contratos")
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      */
-    private $cliente;
+    private $usuario;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Empresas::class, cascade={"persist", "remove"})
+     */
+    private $empresa;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -37,44 +40,58 @@ class Contratos
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
+    private $fecha;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
     private $precio;
 
-    public function __construct()
-    {
-        $this->cliente = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $trailer;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $camion;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $furgon;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $coche;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection|clientes[]
-     */
-    public function getCliente(): Collection
+    public function getUsuario(): ?User
     {
-        return $this->cliente;
+        return $this->usuario;
     }
 
-    public function addCliente(clientes $cliente): self
+    public function setUsuario(?User $usuario): self
     {
-        if (!$this->cliente->contains($cliente)) {
-            $this->cliente[] = $cliente;
-            $cliente->setContratos($this);
-        }
+        $this->usuario = $usuario;
 
         return $this;
     }
 
-    public function removeCliente(clientes $cliente): self
+    public function getEmpresa(): ?Empresas
     {
-        if ($this->cliente->removeElement($cliente)) {
-            // set the owning side to null (unless already changed)
-            if ($cliente->getContratos() === $this) {
-                $cliente->setContratos(null);
-            }
-        }
+        return $this->empresa;
+    }
+
+    public function setEmpresa(?Empresas $empresa): self
+    {
+        $this->empresa = $empresa;
 
         return $this;
     }
@@ -103,6 +120,18 @@ class Contratos
         return $this;
     }
 
+    public function getFecha(): ?string
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(?string $fecha): self
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
     public function getPrecio(): ?string
     {
         return $this->precio;
@@ -111,6 +140,54 @@ class Contratos
     public function setPrecio(?string $precio): self
     {
         $this->precio = $precio;
+
+        return $this;
+    }
+
+    public function getTrailer(): ?int
+    {
+        return $this->trailer;
+    }
+
+    public function setTrailer(?int $trailer): self
+    {
+        $this->trailer = $trailer;
+
+        return $this;
+    }
+
+    public function getCamion(): ?int
+    {
+        return $this->camion;
+    }
+
+    public function setCamion(?int $camion): self
+    {
+        $this->camion = $camion;
+
+        return $this;
+    }
+
+    public function getFurgon(): ?int
+    {
+        return $this->furgon;
+    }
+
+    public function setFurgon(?int $furgon): self
+    {
+        $this->furgon = $furgon;
+
+        return $this;
+    }
+
+    public function getCoche(): ?int
+    {
+        return $this->coche;
+    }
+
+    public function setCoche(?int $coche): self
+    {
+        $this->coche = $coche;
 
         return $this;
     }
