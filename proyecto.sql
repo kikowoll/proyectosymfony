@@ -16,49 +16,31 @@
 CREATE DATABASE IF NOT EXISTS `proyectosymfony` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci */;
 USE `proyectosymfony`;
 
--- Volcando estructura para tabla proyectosymfony.clientes
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id` int(11) DEFAULT NULL,
-  `contratos_id` int(11) DEFAULT NULL,
-  `fecha` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_50FE07D7DB38439E` (`usuario_id`),
-  UNIQUE KEY `UNIQ_50FE07D72DBBD1D4` (`contratos_id`),
-  CONSTRAINT `FK_50FE07D72DBBD1D4` FOREIGN KEY (`contratos_id`) REFERENCES `contratos` (`id`),
-  CONSTRAINT `FK_50FE07D7DB38439E` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Volcando datos para la tabla proyectosymfony.clientes: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
-
--- Volcando estructura para tabla proyectosymfony.clientes_empresas
-CREATE TABLE IF NOT EXISTS `clientes_empresas` (
-  `clientes_id` int(11) NOT NULL,
-  `empresas_id` int(11) NOT NULL,
-  PRIMARY KEY (`clientes_id`,`empresas_id`),
-  KEY `IDX_1C71605FFBC3AF09` (`clientes_id`),
-  KEY `IDX_1C71605F602B00EE` (`empresas_id`),
-  CONSTRAINT `FK_1C71605F602B00EE` FOREIGN KEY (`empresas_id`) REFERENCES `empresas` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_1C71605FFBC3AF09` FOREIGN KEY (`clientes_id`) REFERENCES `clientes` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Volcando datos para la tabla proyectosymfony.clientes_empresas: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `clientes_empresas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes_empresas` ENABLE KEYS */;
-
 -- Volcando estructura para tabla proyectosymfony.contratos
 CREATE TABLE IF NOT EXISTS `contratos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `empresa_id` int(11) DEFAULT NULL,
   `salida` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `llegada` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fecha` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `precio` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `trailer` int(11) DEFAULT NULL,
+  `camion` int(11) DEFAULT NULL,
+  `furgon` int(11) DEFAULT NULL,
+  `coche` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_B90FD71CDB38439E` (`usuario_id`),
+  UNIQUE KEY `UNIQ_B90FD71C521E1991` (`empresa_id`),
+  CONSTRAINT `FK_B90FD71C521E1991` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_B90FD71CDB38439E` FOREIGN KEY (`usuario_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla proyectosymfony.contratos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `contratos` DISABLE KEYS */;
+INSERT INTO `contratos` (`id`, `usuario_id`, `empresa_id`, `salida`, `llegada`, `fecha`, `precio`, `trailer`, `camion`, `furgon`, `coche`) VALUES
+	(1, 2, 3, 'Fuenlabrada (Madrid)', 'Benidorm (Alicante)', '18 de septiembre del 2021 - 17:15', '1566.36', 0, 3, 0, 0),
+	(2, 8, 4, 'Bayarque (Almería)', 'Alfamén (Zaragoza)', '18 de septiembre del 2021 - 20:17', '3968.91', 2, 0, 1, 3);
 /*!40000 ALTER TABLE `contratos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla proyectosymfony.datos_locales
@@ -8198,13 +8180,16 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla proyectosymfony.doctrine_migration_versions: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla proyectosymfony.doctrine_migration_versions: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `doctrine_migration_versions` DISABLE KEYS */;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20210907170455', '2021-09-07 19:05:11', 225),
 	('DoctrineMigrations\\Version20210907170850', '2021-09-07 19:08:56', 98),
 	('DoctrineMigrations\\Version20210907172637', '2021-09-07 19:26:47', 1681),
-	('DoctrineMigrations\\Version20210907174310', '2021-09-07 19:43:15', 167);
+	('DoctrineMigrations\\Version20210907174310', '2021-09-07 19:43:15', 167),
+	('DoctrineMigrations\\Version20210914145504', '2021-09-14 16:55:17', 897),
+	('DoctrineMigrations\\Version20210918125045', '2021-09-18 14:51:42', 1271),
+	('DoctrineMigrations\\Version20210918172955', '2021-09-18 19:30:06', 91);
 /*!40000 ALTER TABLE `doctrine_migration_versions` ENABLE KEYS */;
 
 -- Volcando estructura para tabla proyectosymfony.empresas
@@ -8218,13 +8203,13 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla proyectosymfony.empresas: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla proyectosymfony.empresas: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id`, `nombre`, `precio_trailer`, `precio_camion`, `precio_furgon`, `precio_coche`) VALUES
-	(1, 'Empresa 1\r\n', '1.23', '1.11', '1.01', '0.94'),
-	(2, 'Empresa 2', '1.34', '1.21', '1.09', '1.01'),
-	(3, 'Empresa 3', '1.25', '1.15', '1.05', '0.95'),
-	(4, 'Empresa 4', '1.29', '1.14', '1.01', '0.90');
+	(1, 'Empresa uno', '1.22', '1.13', '1.02', '0.92'),
+	(2, 'Empresa dos', '1.31', '1.24', '1.16', '1.02'),
+	(3, 'Empresa tres', '1.22', '1.14', '1.03', '0.90'),
+	(4, 'Empresa cuatro', '1.24', '1.16', '1.06', '0.97');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla proyectosymfony.user
@@ -8241,17 +8226,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   `telefono` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla proyectosymfony.user: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla proyectosymfony.user: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `nombre`, `direccion`, `codigo_postal`, `localidad`, `provincia`, `telefono`) VALUES
-	(1, 'kiko@mail.com', '["ROLE_SUPER_ADMIN"]', '$2y$13$/0TZlOJMTszHaCD2yEY5H.LKsMGjEYB51WnECh3LrTwbQ/5oRRkTC', 'Kiko Vidal', 'calle el Pez, 12', '28013', 'Madrid', 'Madrid', '654987123'),
+	(1, 'kiko@mail.com', '["ROLE_SUPER_ADMIN"]', '$2y$13$/0TZlOJMTszHaCD2yEY5H.LKsMGjEYB51WnECh3LrTwbQ/5oRRkTC', 'Kiko Vidal', 'calle de la pezcueza, 46', '28013', 'Madrid', 'Madrid', '654987123'),
 	(2, 'ana@mail.com', '[]', '$2y$13$VufzYBekgwLwrZ3M7K5pu.aP5MYWUDOaCtgrmzAtyvuYtp0Oz.Cmm', 'Ana Luisa Martinez', 'calle mira de to, 23', '28042', 'Madrid', 'Madrid', '698745123'),
-	(3, 'empresa1@mail.com', '["ROLE_ADMIN"]', '$2y$13$BXet.H9TyaJPsnpDxLPPGejzf2md4kmOOeyysPVqwnXFqwFY8k8mq', 'Empresa 1', 'calle morales, 123', '28023', 'Madrid', 'Madrid', '654789321'),
-	(4, 'empresa2@mail.com', '["ROLE_ADMIN"]', '$2y$13$DyZvvWmbM3ZVjT1gRMr82u7cfbDSmf8cXWlUhA7VX8bXGqp5ty8QS', NULL, NULL, NULL, NULL, NULL, NULL),
-	(5, 'empresa3@mail.com', '["ROLE_ADMIN"]', '$2y$13$EV29K7FNwPzZl8czalr9.u39vc.P2xQ4WHKAbCYfHs3Q4zYzA4bAq', NULL, NULL, NULL, NULL, NULL, NULL),
-	(6, 'empresa4@mail.com', '["ROLE_ADMIN"]', '$2y$13$/WGYJF2eNKtH3Jhw2lPvmOJU2qvLHjIYlBb/6mxXwsUygmNRkIrE.', 'Empresa 4', 'calle atocha, 12', '28012', 'Madrid', 'Madrid', '912354687');
+	(3, 'empresa1@mail.com', '["ROLE_ADMIN"]', '$2y$13$BXet.H9TyaJPsnpDxLPPGejzf2md4kmOOeyysPVqwnXFqwFY8k8mq', 'Empresa uno', 'calle morales, 123', '28023', 'Madrid', 'Madrid', '654789321'),
+	(4, 'empresa2@mail.com', '["ROLE_ADMIN"]', '$2y$13$DyZvvWmbM3ZVjT1gRMr82u7cfbDSmf8cXWlUhA7VX8bXGqp5ty8QS', 'Empresa dos', 'calle Tomelloso, 13', '28745', 'Aranjuez', 'Madrid', '698745123'),
+	(5, 'empresa3@mail.com', '["ROLE_ADMIN"]', '$2y$13$EV29K7FNwPzZl8czalr9.u39vc.P2xQ4WHKAbCYfHs3Q4zYzA4bAq', 'Empresa tres', NULL, NULL, NULL, NULL, NULL),
+	(6, 'empresa4@mail.com', '["ROLE_ADMIN"]', '$2y$13$/WGYJF2eNKtH3Jhw2lPvmOJU2qvLHjIYlBb/6mxXwsUygmNRkIrE.', 'Empresa cuatro', 'calle atocha, 12', '28012', 'Madrid', 'Madrid', '912354687'),
+	(7, 'jose@mail.com', '[]', '$2y$13$/WGYJF2eNKtH3Jhw2lPvmOJU2qvLHjIYlBb/6mxXwsUygmNRkIrE.', NULL, NULL, NULL, NULL, NULL, NULL),
+	(8, 'luis@mail.com', '[]', '$2y$13$8mIOxH4nAmZY02RrDGhL2uM.DWu2Wvq25hKHuxtdHlA27RVRyoZpG', 'Luis Garcia Santos', 'calle del pesado, 13', '28147', 'Mostoles', 'Madrid', '912345678');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
