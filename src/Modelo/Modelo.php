@@ -9,6 +9,7 @@ use App\Repository\EmpresasRepository;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Driver\PDO\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Stmt\TryCatch;
 
 class Modelo {
 
@@ -73,5 +74,24 @@ class Modelo {
         }
 
         return $contrato;
+    }
+
+    // editar precios de los vehiculos
+    public function editarPrecio($id, $tra, $cam, $fur, $coc)
+    {
+        $precio = $this->emr->find($id);
+        $precio->setPrecioTrailer($tra);
+        $precio->setPrecioCamion($cam);
+        $precio->setPrecioFurgon($fur);
+        $precio->setPrecioCoche($coc);
+
+        try {
+            $this->em->persist($precio);
+            $this->em->flush();
+        } catch (Exception $ex) {
+            return 'Error al guardar precio' . $ex->getMessage();
+        }
+
+        return $precio;
     }
 }

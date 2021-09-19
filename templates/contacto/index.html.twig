@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacto{% endblock %}
+
+{# CSS #}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/dist/contacto.css') }}">
+{% endblock %}
+
+{# CONTENIDO #}
+{% block body %}
+<div class="container">
+    <h1 class="text-center mt-5 mb-5">Contacto</h1>
+    <div class="contenedor">
+        <h2 class="text-center">Cuentanos</h2>
+        <form action="">
+            <div class="cajas">
+                <input type="text" name="" id="" minlength="1" required>
+                <label for="">Nombre</label>
+            </div>
+            <div class="cajas">
+                <input type="email" name="" id="" minlength="1" required>
+                <label for="">Correo</label>
+            </div>
+            <div class="cajas">
+                <input type="text" name="" id="" minlength="1" required>
+                <label for="">Asunto</label>
+            </div>
+            <div class="caja-mensaje">
+                <textarea name="" id="" placeholder="Mensaje" minlength="1" required></textarea>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6"><button type="reset" class="btn btn-danger btn-block"><i class="fa fa-eraser"></i> Limpiar</button></div>
+                <div class="col-md-6"><button type="submit" class="btn btn-primary btn-block"><i class="fa fa-send"></i> Enviar</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{# JAVASCRIPTS #}
+{% block javascripts %}
+    
+{% endblock %}

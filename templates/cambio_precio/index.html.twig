@@ -1,20 +1,94 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CambioPrecioController!{% endblock %}
+{% block title %}Edita precio{% endblock %}
 
+
+{% block stylesheets %}
+    <style>
+        .contenedor {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+
+{# CONTENIDO #}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">Editor de Precios</h1>
+        <div class="contenedor">
+        {% if textos == "" %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {% else %}
+        <div class="alert alert-{{ colores }} alert-dismissible fade show" style="margin-top: 70px;" role="alert">
+            {{ textos }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h5 class="text-white">{{ app.user.nombre }}</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ path('cam_guardar') }}" method="post">
+                        {% if datos != "" %}
+                            <div class="form-group">
+                            <label for="">TRAILER <img src="{{ asset('img/c1p.png') }}" alt=""></label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control text-right" placeholder="0.00" aria-describedby="basic-addon2" name="pre-trailer" id="pre-trailer" value="{{ datos[0].precioTrailer }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">CAMION <img src="{{ asset('img/c2p.png') }}" alt=""></label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control text-right" placeholder="0.00" aria-describedby="basic-addon2" name="pre-camion" id="pre-camion" value="{{ datos[0].precioCamion }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">FURGON <img src="{{ asset('img/c3p.png') }}" alt=""></label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control text-right" placeholder="0.00" aria-describedby="basic-addon2" name="pre-furgon" id="pre-furgon" value="{{ datos[0].precioFurgon }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">MENOR DE 3500 KLS. <img src="{{ asset('img/c4p.png') }}" alt=""></label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control text-right" placeholder="0.00" aria-describedby="basic-addon2" name="pre-coche" id="pre-coche" value="{{ datos[0].precioCoche }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <a href="{{ path('pri_index') }}" class="btn btn-danger btn-block"><i class="fa fa-times"></i> Cancelar</a>
+                                </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/casa/Documents/developed/SYMFONY/proyectosymfony/src/Controller/CambioPrecioController.php'|file_link(0) }}">src/Controller/CambioPrecioController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/casa/Documents/developed/SYMFONY/proyectosymfony/templates/cambio_precio/index.html.twig'|file_link(0) }}">templates/cambio_precio/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block javascripts %}
+    
 {% endblock %}

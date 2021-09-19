@@ -54,7 +54,7 @@
                                 <td>
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#staticBackdrop" 
-                                        onclick="rellenar('{{contrato.usuario.nombre}}','{{contrato.salida}}','{{contrato.llegada}}','{{contrato.precio}}','{{contrato.fecha}}')">
+                                        onclick="rellenar('{{contrato.usuario.nombre}}','{{contrato.salida}}','{{contrato.llegada}}','{{contrato.precio}}','{{contrato.fecha}}','{{contrato.trailer}}','{{contrato.camion}}','{{contrato.furgon}}','{{contrato.coche}}')">
                                         <i class="fa fa-eye fa-2x text-primary"></i>
                                     </button>
                                     {% elseif  is_granted('ROLE_USER')%}
@@ -176,7 +176,7 @@
             $('#empresa').text(emp)
             $('#salida').text(sal)
             $('#llegada').text(lle)
-            $('#precio').text(pre+' €')
+            $('#precio').text(pre + ' €')
             $('#fecha').text(fec)
             $('#ve-trailer').text(tra)
             $('#ve-camion').text(cam)

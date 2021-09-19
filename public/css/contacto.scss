@@ -1,0 +1,101 @@
+// colores root
+$blue: #007bff;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #17a2b8;
+$white: #fff;
+$gray: #6c757d;
+$gray-dark: #343a40;
+$primary: #007bff;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+.contenedor {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 3px 3px $secondary;
+    form {
+        position: relative;
+        width: 100%;
+        .cajas {
+            position: relative;
+            width: 100%;
+            height: 46px;
+            border-bottom: 2px solid $secondary;
+            input {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 90%;
+                margin-left: 5%;
+                font-size: 18px;
+                background-color: transparent;
+                border: 0;
+                outline: 0;
+                z-index: 10;
+                &:focus ~ label,
+                &:valid ~ label {
+                    bottom: 14px;
+                    left: 20px;
+                    font-size: 16px;
+                    color: $primary;
+                }
+            }
+            label {
+                position: absolute;
+                bottom: 0;
+                left: 70px;
+                font-size: 14px;
+                color: $secondary;
+                transition: all 1s;
+            }
+        }
+        .caja-mensaje {
+            position: relative;
+            margin-top: 16px;
+            width: 100%;
+            border-bottom: 2px solid $secondary;;;;;
+            textarea {
+                width: 100%;
+                height: 30px;
+                background-color: transparent;
+                border: 0;
+                outline: 0;
+                resize: none;
+                transition: all 1s;
+                &:focus,
+                &:valid {
+                    height: 120px;
+                    border: 2px solid $secondary;
+                    border-radius: 14px;
+                    padding: 14px;
+                    background-color: $light;
+                    & > div {
+                        border: 0;
+                    }
+                }
+            }
+        }
+
+    }
+}

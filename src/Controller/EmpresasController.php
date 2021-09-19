@@ -46,7 +46,8 @@ class EmpresasController extends AbstractController
             'furgones' => $furgon,
             'coches' => $coche, 
             'empresas' => $empresa,
-
+            'textos' => '',
+            'colores' => '',
         ]);
     }
 
@@ -89,7 +90,7 @@ class EmpresasController extends AbstractController
         } else {
             $texto = 'A pasado algo malo, no hemos podido hacer tu transferencia. Intenalo mas tarde';
             $color = 'danger';
-            $sitio = 'comparador/index.html.twig';
+            $sitio = 'empresas/index.html.twig';
         }
 
         return $this->render($sitio, [

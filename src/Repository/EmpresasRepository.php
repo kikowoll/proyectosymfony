@@ -47,4 +47,19 @@ class EmpresasRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+    * @return Empresas[] Returns an array of Empresas objects
+    */
+    
+    public function verEmpresa($value)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.nombre = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 }

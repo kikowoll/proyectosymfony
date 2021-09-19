@@ -1,0 +1,70 @@
+.contenedor {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 3px 3px #6c757d;
+}
+.contenedor form {
+  position: relative;
+  width: 100%;
+}
+.contenedor form .cajas {
+  position: relative;
+  width: 100%;
+  height: 46px;
+  border-bottom: 2px solid #6c757d;
+}
+.contenedor form .cajas input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  margin-left: 5%;
+  font-size: 18px;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  z-index: 10;
+}
+.contenedor form .cajas input:focus ~ label, .contenedor form .cajas input:valid ~ label {
+  bottom: 14px;
+  left: 20px;
+  font-size: 16px;
+  color: #007bff;
+}
+.contenedor form .cajas label {
+  position: absolute;
+  bottom: 0;
+  left: 70px;
+  font-size: 14px;
+  color: #6c757d;
+  transition: all 1s;
+}
+.contenedor form .caja-mensaje {
+  position: relative;
+  margin-top: 16px;
+  width: 100%;
+  border-bottom: 2px solid #6c757d;
+}
+.contenedor form .caja-mensaje textarea {
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  resize: none;
+  transition: all 1s;
+}
+.contenedor form .caja-mensaje textarea:focus, .contenedor form .caja-mensaje textarea:valid {
+  height: 120px;
+  border: 2px solid #6c757d;
+  border-radius: 14px;
+  padding: 14px;
+  background-color: #f8f9fa;
+}
+.contenedor form .caja-mensaje textarea:focus > div, .contenedor form .caja-mensaje textarea:valid > div {
+  border: 0;
+}

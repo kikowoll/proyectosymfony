@@ -30,7 +30,7 @@
         <li><a href="{{ path('com_index') }}"><i class="fa fa-cogs"></i> Comparador</a></li>
         
 
-        <li><a href=""><i class="fa fa-envelope"></i> Contacto</a></li>
+        <li><a href="{{ path('con_index') }}"><i class="fa fa-envelope"></i> Contacto</a></li>
 
         {% if app.user %}
           <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-user"></i> {{ app.user.username }}</a></li>
@@ -58,7 +58,7 @@
         <a href="{{ path('app_editar') }}" class="btn btn-primary btn-block">Editar mis Datos</a>
         <a href="{{ path('mo_index') }}" class="btn btn-primary btn-block">Mis Movimientos</a>
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')%}
-        <a href="" class="btn btn-primary btn-block">Editar Precios</a>
+        <a href="{{ path('cam_index') }}" class="btn btn-primary btn-block">Editar Precios</a>
         {% endif %}
         <a href="{{ path('app_logout') }}" class="btn btn-danger btn-block">Cerrar sesión</a>
       </div>
