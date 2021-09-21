@@ -41,6 +41,7 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/principal, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/contacto, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cambio, roles: ROLE_ADMIN }
         - { path: ^/comparador, roles: ROLE_USER }
         - { path: ^/movimientos, roles: ROLE_USER }
-        - { path: ^/cambio, roles: ROLE_ADMIN }

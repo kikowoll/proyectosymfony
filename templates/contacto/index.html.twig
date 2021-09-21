@@ -11,23 +11,34 @@
 {% block body %}
 <div class="container">
     <h1 class="text-center mt-5 mb-5">Contacto</h1>
+    {% if textos == "" %}
+
+    {% else %}
+    <div class="alert alert-{{ colores }} alert-dismissible fade show" style="margin-top: 70px;" role="alert">
+        <h4>{{ textos }}</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    
     <div class="contenedor">
         <h2 class="text-center">Cuentanos</h2>
-        <form action="">
+        <form action="{{ path('con_mandar') }}" method="post">
             <div class="cajas">
-                <input type="text" name="" id="" minlength="1" required>
+                <input type="text" name="nombre" id="nombre" minlength="1" required>
                 <label for="">Nombre</label>
             </div>
             <div class="cajas">
-                <input type="email" name="" id="" minlength="1" required>
+                <input type="email" name="correo" id="correo" minlength="1" required>
                 <label for="">Correo</label>
             </div>
             <div class="cajas">
-                <input type="text" name="" id="" minlength="1" required>
+                <input type="text" name="asunto" id="asunto" minlength="1" required>
                 <label for="">Asunto</label>
             </div>
             <div class="caja-mensaje">
-                <textarea name="" id="" placeholder="Mensaje" minlength="1" required></textarea>
+                <textarea name="mensaje" id="mensaje" placeholder="Mensaje" minlength="1" required></textarea>
             </div>
             <div class="row mt-4">
                 <div class="col-md-6"><button type="reset" class="btn btn-danger btn-block"><i class="fa fa-eraser"></i> Limpiar</button></div>

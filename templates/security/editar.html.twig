@@ -107,6 +107,13 @@
                     <input type="text" class="form-control" placeholder="correo" aria-label="Username"
                         aria-describedby="basic-addon7" name="email" value="{{ usuarios.email }}">
                 </div>
+                <br>
+                {% if usuarios.roles == '[]' %}
+                <input type="checkbox" name="soyem" id="soy"> <label for="soy">SI, soy una empresa</label>
+                {% else %}
+                <input type="checkbox" name="soyem" id="soy" checked> <label for="soy">SI, soy una empresa</label>
+                {% endif %}
+                
                 <div class="row mt-3">
                     <div class="col-md-6"><button type="submit" class="btn btn-primary btn-block">Guardar</button>
                     </div>

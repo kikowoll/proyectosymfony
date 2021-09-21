@@ -70,8 +70,17 @@ class SecurityController extends AbstractController
         $provincia = $request->request->get('provincia');
         $telefono = $request->request->get('telefono');
         $email = $request->request->get('email');
+        $soyem = $request->request->get('soyem');
 
-        $cambio = $modelo->guardar(intval($idd),$nombre,$direccion,$localidad,$codigo,$provincia,$telefono,$email);
+        if(!$soyem) {
+            $role = array('[]');
+        } else {
+            $role = array('["ROLE_ADMIN"]');
+        }
+
+        dump($role);
+
+        $cambio = $modelo->guardar(intval($idd),$role,$nombre,$direccion,$localidad,$codigo,$provincia,$telefono,$email);
         $cambio->getId();
 
         if($cambio) {
